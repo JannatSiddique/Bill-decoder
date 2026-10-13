@@ -1,0 +1,13 @@
+# secrets & environments
+.env
+.env.local
+.venv/
+# dependencies & build output
+node_modules/
+.next/
+__pycache__/
+*.pyc
+# caches & logs
+source/response_cache/
+*.log
+.DS_Store

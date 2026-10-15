@@ -14,9 +14,9 @@ export default function Design() {
     <Section id="design" eyebrow="Design" title="Built to be cheap, repeatable and safe">
       <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {items.map(([t, d]) => (
-          <div key={t} className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
+          <div key={t} className="rounded-2xl border border-stone-200 bg-white/90 transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/10 p-5">
             <h3 className="font-semibold">{t}</h3>
-            <p className="mt-1.5 text-sm text-stone-600 dark:text-stone-400">{d}</p>
+            <p className="mt-1.5 text-sm text-stone-600">{d}</p>
           </div>
         ))}
       </div>

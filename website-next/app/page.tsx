@@ -5,9 +5,8 @@ import Outputs from "@/components/Outputs";
 import Results from "@/components/Results";
 import Questions from "@/components/Questions";
 import Design from "@/components/Design";
-import QuickStart from "@/components/QuickStart";
 import Footer from "@/components/Footer";
-import { loadBills, loadAnswers, countUnavailable } from "@/lib/bills";
+import { loadBills, loadAnswers, countUnavailable, loadQuestions } from "@/lib/bills";
 
 export default function Home() {
   const bills = loadBills();
@@ -22,9 +21,8 @@ export default function Home() {
         <Pipeline />
         <Outputs />
         <Results bills={bills} total={total} unavailable={unavailable} />
-        <Questions answers={answers} />
+        <Questions questions={loadQuestions()} />
         <Design />
-        <QuickStart />
       </main>
       <Footer />
     </>

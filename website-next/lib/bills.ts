@@ -80,3 +80,25 @@ export function loadQuestions(): { id: string; question: string }[] {
   for (const [, id, question] of rows) if (!seen.has(id)) seen.set(id, question);
   return [...seen].map(([id, question]) => ({ id, question }));
 }
+
+const norm = (t: string) => t.toLowerCase().replace(/\s+/g, " ").trim();
+
+/** Bill ids that have saved pipeline results bundled in data/demo (used as a fallback only). */
+export function demoBillId(fileName: unknown): string | null {
+  if (typeof fileName !== "string") return null;
+  const id = fileName.replace(/\.[^.]+$/, "").toUpperCase();
+  const ok = fs.existsSync(path.join(DATA_DIR, "demo", `${id}_level1.json`)) && fs.existsSync(path.join(DATA_DIR, "demo", `${id}_facts.json`));
+  return ok ? id : null;
+}
+
+export function loadDemo(id: string) {
+  const read = (kind: string) => JSON.parse(fs.readFileSync(path.join(DATA_DIR, "demo", `${id}_${kind}.json`), "utf8"));
+  return { level1: read("level1"), facts: read("facts") };
+}
+
+/** Saved pipeline answer when `question` is one of the 12 standard questions. */
+export function demoAnswer(id: string, question: string): string | null {
+  const q = loadQuestions().find((x) => norm(x.question) === norm(question));
+  if (!q) return null;
+  return loadAnswers()[id]?.find((a) => a.questionId === q.id)?.answer ?? null;
+}

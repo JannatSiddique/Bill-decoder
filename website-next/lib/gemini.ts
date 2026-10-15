@@ -24,7 +24,10 @@ function loadConfig(): Config {
       /* no .env available */
     }
   }
-  if (!apiKey) throw new Error("API_KEY is not set. Add it to website-next/.env.local or source/.env.");
+  if (!apiKey) {
+    console.error("API_KEY is not set. Add it to website-next/.env.local, source/.env, or the host's environment variables.");
+    throw new Error("Live AI is not configured on this server (API_KEY is missing).");
+  }
   cached = { apiKey, model: model || "gemini-3.5-flash-lite" };
   return cached;
 }

@@ -17,6 +17,14 @@ Next.js 16 + Tailwind CSS 4 front end for WattsMyBill, which reads Pakistani ele
 
 This mirrors the Python pipeline in [`source/`](source/), see [README-pipeline.md](README-pipeline.md); `lib/stats.ts` is a port of `stats.py`.
 
+## Live AI first, saved results as a fallback
+
+- **Every upload, including the sample bills, is read by live Gemini**, and every answer (the 12 standard
+  questions and custom ones) is generated live. Each reply is tagged "Live AI".
+- **Fallback:** if the live call fails (missing key, quota, outage) and the bill is one of the 10 samples, the app
+  returns the Python pipeline's saved result instead and tags it "Saved result". Your own bills just show the error.
+- Live calls are limited per IP (`RATE_LIMIT_PER_HOUR`, default 40).
+
 ## Run locally
 
 ```bash
@@ -41,6 +49,7 @@ The app is self-contained: it reads copies of the pipeline output from `website-
 | `data/level1.csv` | `output/level1.csv` | results table |
 | `data/level2.csv` | `output/level2.csv` | answer coverage stats |
 | `data/questions.csv` | `test/csv/level2.csv` | the 12 questions |
+| `data/demo/*.json` | `source/response_cache/` | saved extraction used as a fallback |
 | `public/test-bills/` | `test/bills/` | downloadable sample bills |
 
 After re-running the Python pipeline, refresh the copies with `npm run sync-data`, then rebuild.

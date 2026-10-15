@@ -2,8 +2,8 @@
 import { useRef, useState } from "react";
 
 type Question = { id: string; question: string };
-type Msg = { role: "user" | "bot" | "error"; text: string };
-type Analysis = { level1: Record<string, unknown>; stats: Record<string, unknown> };
+type Msg = { role: "user" | "bot" | "error"; text: string; tag?: string };
+type Analysis = { level1: Record<string, unknown>; stats: Record<string, unknown>; billId: string | null; source: "live" | "saved"; notice?: string };
 type Img = { mimeType: string; data: string; url: string; name: string };
 
 // Downscale large photos so uploads stay small and fast.
@@ -48,10 +48,14 @@ export default function ChatBot({ questions, samples }: { questions: Question[];
     try {
       const img = await toImage(file);
       setImage(img);
-      const result = await post<Analysis>("/api/analyze", { image: { mimeType: img.mimeType, data: img.data } });
+      const result = await post<Analysis>("/api/analyze", { name: file.name, image: { mimeType: img.mimeType, data: img.data } });
       setAnalysis(result);
       setStatus("ready");
-      setMessages([{ role: "bot", text: "I've read your bill. Pick a question below or type your own." }]);
+      setMessages([
+        result.source === "live"
+          ? { role: "bot", text: "I've read your bill with live AI. Pick a question below or type your own.", tag: "Live AI" }
+          : { role: "bot", text: "Live AI isn't available right now, so I loaded this sample bill's saved results. Answers to the 12 standard questions will also be saved results.", tag: "Saved result" },
+      ]);
     } catch (e) {
       setStatus("failed");
       setMessages([{ role: "error", text: e instanceof Error ? e.message : "Could not read the bill." }]);
@@ -82,13 +86,14 @@ export default function ChatBot({ questions, samples }: { questions: Question[];
     setMessages((m) => [...m, { role: "user", text: q }]);
     scroll();
     try {
-      const { answer } = await post<{ answer: string }>("/api/ask", {
+      const { answer, source } = await post<{ answer: string; source: "live" | "saved" }>("/api/ask", {
         question: q,
         level1: analysis.level1,
         stats: analysis.stats,
+        billId: analysis.billId,
         image: image && { mimeType: image.mimeType, data: image.data },
       });
-      setMessages((m) => [...m, { role: "bot", text: answer }]);
+      setMessages((m) => [...m, { role: "bot", text: answer, tag: source === "live" ? "Live AI" : "Saved result (live AI unavailable)" }]);
     } catch (e) {
       setMessages((m) => [...m, { role: "error", text: e instanceof Error ? e.message : "Something went wrong." }]);
     } finally {
@@ -146,7 +151,7 @@ export default function ChatBot({ questions, samples }: { questions: Question[];
         </label>
         <p className="mt-3 text-sm" role="status">
           {status === "analyzing" && <span className="text-amber-700">Reading your bill… this takes 10–30 seconds.</span>}
-          {ready && <span className="text-emerald-700">✓ Bill ready — {image?.name}</span>}
+          {ready && <span className="text-emerald-700">✓ Bill ready — {image?.name}{analysis?.source === "live" ? " (read by live AI)" : " (saved result)"}</span>}
           {status === "failed" && <span className="text-red-700">Couldn&apos;t read this bill. Try another image.</span>}
           {status === "idle" && <span className="text-stone-500">Your image is sent only to the Gemini API to answer your questions.</span>}
         </p>
@@ -170,6 +175,7 @@ export default function ChatBot({ questions, samples }: { questions: Question[];
                 }`}
               >
                 {m.text}
+                {m.tag && <div className="mt-1 text-[11px] font-medium uppercase tracking-wide text-stone-400">{m.tag}</div>}
               </div>
             </div>
           ))}

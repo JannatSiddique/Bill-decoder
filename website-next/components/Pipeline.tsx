@@ -13,15 +13,15 @@ export default function Pipeline() {
       lede="Bills mix Urdu and English labels, tilted photos, usage tables and stacked surcharges. Each bill flows through the same four stages.">
       <ol className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
-          <li key={s.t} className="rounded-2xl border border-stone-200 bg-white p-5 dark:border-stone-800 dark:bg-stone-900">
-            <span className="mb-3 grid h-7 w-7 place-items-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400">{i + 1}</span>
+          <li key={s.t} className="rounded-2xl border border-stone-200 bg-white/90 transition duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/10 p-5">
+            <span className="mb-3 grid h-7 w-7 place-items-center rounded-full bg-emerald-100 text-sm font-bold text-emerald-800">{i + 1}</span>
             <h3 className="font-semibold">{s.t}</h3>
-            <p className="mt-1.5 text-sm text-stone-600 dark:text-stone-400">{s.d}</p>
-            <span className={`mt-3 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${s.py ? "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-400" : "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-400"}`}>{s.tag}</span>
+            <p className="mt-1.5 text-sm text-stone-600">{s.d}</p>
+            <span className={`mt-3 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${s.py ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"}`}>{s.tag}</span>
           </li>
         ))}
       </ol>
-      <p className="mt-6 rounded-r-xl border-l-4 border-emerald-700 bg-emerald-50 px-5 py-4 dark:border-emerald-400 dark:bg-emerald-950/50">
+      <p className="mt-6 rounded-r-xl border-l-4 border-emerald-700 bg-emerald-50 px-5 py-4">
         <strong>Why it matters:</strong> language models are unreliable at arithmetic. Pre-computing every figure makes answers verifiable and keeps the model grounded in what the bill shows.
       </p>
     </Section>

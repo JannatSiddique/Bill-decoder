@@ -1,4 +1,6 @@
-# Pakistani Electricity Bill Decoder
+# WattsMyBill — Pakistani Electricity Bill Decoder
+
+This folder is the Python pipeline behind **WattsMyBill**. A web app and chatbot for it lives in [`../website-next`](../website-next/README.md).
 
 An AI-powered system to extract structured data and answer questions about Pakistani electricity bills (K-Electric, LESCO, IESCO).
 

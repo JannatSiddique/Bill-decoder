@@ -12,7 +12,7 @@ function loadSamples() {
 }
 
 export const metadata: Metadata = {
-  title: "Ask your bill — Bill Decoder",
+  title: "Ask your bill — WattsMyBill",
   description: "Upload a Pakistani electricity bill image and ask questions about it.",
 };
 

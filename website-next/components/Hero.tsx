@@ -18,7 +18,7 @@ export default function Hero() {
             <span className="text-shimmer animate-shimmer">clear answers</span>.
           </h1>
           <p className="mt-5 max-w-[52ch] animate-fade-up [animation-delay:.2s] text-lg text-stone-600">
-            Pakistani Electricity Bill Decoder reads a bill image with a vision model, extracts 17 structured fields,
+            WattsMyBill reads a bill image with a vision model, extracts 17 structured fields,
             and answers 12 customer questions in plain English — with all the math done in Python, not guessed by the model.
           </p>
           <div className="mt-7 flex animate-fade-up flex-wrap gap-3 [animation-delay:.3s]">

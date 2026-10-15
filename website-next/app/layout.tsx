@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bill Decoder — Pakistani Electricity Bills, Explained",
+  title: "WattsMyBill — Pakistani Electricity Bills, Explained",
   description: "An AI pipeline that reads K-Electric, LESCO and IESCO bill images and returns structured data plus plain-English answers.",
 };
 

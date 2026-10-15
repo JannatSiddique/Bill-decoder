@@ -13,7 +13,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-10 border-b border-stone-200 bg-stone-50/85 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
         <a href="/" className="flex items-center gap-2.5 font-bold tracking-tight">
-          <Logo /> Bill Decoder
+          <Logo /> WattsMyBill
         </a>
         <nav aria-label="Primary" className="flex items-center gap-6 text-sm">
           {links.map(([label, href]) => (

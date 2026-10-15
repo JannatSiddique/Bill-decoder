@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-8 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <a href="/" className="flex items-center gap-2.5 font-bold"><Logo /> Bill Decoder</a>
+            <a href="/" className="flex items-center gap-2.5 font-bold"><Logo /> WattsMyBill</a>
             <p className="mt-3 max-w-[36ch] text-sm text-stone-600">
               An AI-powered system for extracting structured data and answering questions about Pakistani electricity bills.
             </p>
@@ -27,7 +27,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-10 flex flex-wrap justify-between gap-2 border-t border-stone-200 pt-5 text-sm text-stone-500">
-          <span>© 2026 Bill Decoder — project qt-26</span>
+          <span>© 2026 WattsMyBill</span>
           <span>Supports K-Electric, LESCO &amp; IESCO bills</span>
         </div>
       </div>

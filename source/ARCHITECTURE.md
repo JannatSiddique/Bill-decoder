@@ -1,6 +1,6 @@
-# Architecture Overview
+# WattsMyBill — Architecture Overview
 
-## What the Bill Decoder Does
+## What WattsMyBill Does
 
 **Input:** Bill image (PNG/JPG) from K-Electric, LESCO, or IESCO  
 **Output:** 

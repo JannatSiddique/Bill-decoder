@@ -34,16 +34,16 @@ MODEL_NAME=gemini-3.5-flash-lite
 
 ## Data
 
-The homepage reads the Python pipeline's output at build time:
+The app is self-contained: it reads copies of the pipeline output from `website-next/data/`.
 
-| File | Used for |
-|------|----------|
-| `../output/level1.csv` | results table |
-| `../output/level2.csv` | answer coverage stats |
-| `../test/csv/level2.csv` | the 12 questions |
-| `public/test-bills/` | downloadable sample bills |
+| File | Source | Used for |
+|------|--------|----------|
+| `data/level1.csv` | `output/level1.csv` | results table |
+| `data/level2.csv` | `output/level2.csv` | answer coverage stats |
+| `data/questions.csv` | `test/csv/level2.csv` | the 12 questions |
+| `public/test-bills/` | `test/bills/` | downloadable sample bills |
 
-Re-run the Python pipeline, then rebuild, to refresh the numbers.
+After re-running the Python pipeline, refresh the copies with `npm run sync-data`, then rebuild.
 
 ## Build & deploy
 
@@ -54,7 +54,7 @@ npm run build && npm start
 For hosting (for example Vercel, root directory `website-next`):
 
 - Set `API_KEY` and `MODEL_NAME` as environment variables; never commit them.
-- Copy the CSVs above into `website-next/`, or enable access to files outside the root directory, because the app currently reads `../output` and `../test`.
+- Set the Vercel **Root Directory** to `website-next` (use "Import single project" for it, not the Python `source` project).
 - `/api/analyze` and `/api/ask` are unauthenticated and spend your Gemini quota, so add rate limiting or access control before making the site public.
 
 ## Project layout

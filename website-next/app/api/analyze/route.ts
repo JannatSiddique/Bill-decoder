@@ -6,6 +6,8 @@ import { computeStats } from "@/lib/stats";
 const ALLOWED = new Set(["image/png", "image/jpeg", "image/webp"]);
 const MAX_BASE64 = 8_000_000; // ~6 MB image
 
+export const maxDuration = 60;
+
 export async function POST(req: Request) {
   try {
     const { image } = await req.json();

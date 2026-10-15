@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-const OUTPUT_DIR = path.join(process.cwd(), "..", "output");
+const DATA_DIR = path.join(process.cwd(), "data");
 
 function parseCsv(text: string): string[][] {
   const rows: string[][] = [];
@@ -41,7 +41,7 @@ export type Bill = {
 export type Answer = { questionId: string; question: string; answer: string };
 
 export function loadBills(): Bill[] {
-  const rows = parseCsv(fs.readFileSync(path.join(OUTPUT_DIR, "level1.csv"), "utf8")).slice(1);
+  const rows = parseCsv(fs.readFileSync(path.join(DATA_DIR, "level1.csv"), "utf8")).slice(1);
   return rows.map(([id, json]) => {
     const j = JSON.parse(json);
     return {
@@ -58,7 +58,7 @@ export function loadBills(): Bill[] {
 }
 
 export function loadAnswers(): Record<string, Answer[]> {
-  const rows = parseCsv(fs.readFileSync(path.join(OUTPUT_DIR, "level2.csv"), "utf8")).slice(1);
+  const rows = parseCsv(fs.readFileSync(path.join(DATA_DIR, "level2.csv"), "utf8")).slice(1);
   const out: Record<string, Answer[]> = {};
   for (const [id, questionId, question, answer] of rows) {
     (out[id] ??= []).push({ questionId, question, answer });
@@ -74,7 +74,7 @@ export function countUnavailable(all: Record<string, Answer[]>) {
 
 // The 12 customer questions, taken from the official Level 2 template.
 export function loadQuestions(): { id: string; question: string }[] {
-  const file = path.join(process.cwd(), "..", "test", "csv", "level2.csv");
+  const file = path.join(DATA_DIR, "questions.csv");
   const rows = parseCsv(fs.readFileSync(file, "utf8")).slice(1);
   const seen = new Map<string, string>();
   for (const [, id, question] of rows) if (!seen.has(id)) seen.set(id, question);

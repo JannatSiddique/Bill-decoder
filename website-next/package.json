@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync-data": "cp ../output/level1.csv ../output/level2.csv data/ && cp ../test/csv/level2.csv data/questions.csv"
   },
   "dependencies": {
     "next": "16.4.0",

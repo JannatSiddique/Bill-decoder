@@ -1,5 +1,7 @@
 # WattsMyBill — web app
 
+Lives in the [`website-next/`](website-next/) folder. Run every command below from inside it (`cd website-next`).
+
 Next.js 16 + Tailwind CSS 4 front end for WattsMyBill, which reads Pakistani electricity bills
 (K-Electric, LESCO, IESCO) and answers customer questions about them.
 
@@ -13,7 +15,7 @@ Next.js 16 + Tailwind CSS 4 front end for WattsMyBill, which reads Pakistani ele
 2. `lib/stats.ts` — all arithmetic (averages, trends, seasonal totals, forecasts) is done in code, never by the model.
 3. `POST /api/ask` — the model answers one question using the bill data and the pre-computed statistics.
 
-This mirrors the Python pipeline in [`../source`](../source/README.md); `lib/stats.ts` is a port of `stats.py`.
+This mirrors the Python pipeline in [`source/`](source/), see [README-pipeline.md](README-pipeline.md); `lib/stats.ts` is a port of `stats.py`.
 
 ## Run locally
 
@@ -23,7 +25,7 @@ npm run dev        # http://localhost:3000
 ```
 
 The Gemini key is read from `API_KEY` (and the model from `MODEL_NAME`) in the environment, or from
-`.env.local` in this folder. As a local convenience it falls back to `../source/.env`.
+`website-next/.env.local`. As a local convenience it falls back to `../source/.env`.
 
 ```
 API_KEY=your-google-api-key-here
@@ -52,7 +54,7 @@ npm run build && npm start
 For hosting (for example Vercel, root directory `website-next`):
 
 - Set `API_KEY` and `MODEL_NAME` as environment variables; never commit them.
-- Copy the CSVs above into this folder, or enable access to files outside the root directory, because the app currently reads `../output` and `../test`.
+- Copy the CSVs above into `website-next/`, or enable access to files outside the root directory, because the app currently reads `../output` and `../test`.
 - `/api/analyze` and `/api/ask` are unauthenticated and spend your Gemini quota, so add rate limiting or access control before making the site public.
 
 ## Project layout

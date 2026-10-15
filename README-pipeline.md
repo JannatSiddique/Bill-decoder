@@ -1,6 +1,6 @@
 # WattsMyBill — Pakistani Electricity Bill Decoder
 
-This folder is the Python pipeline behind **WattsMyBill**. A web app and chatbot for it lives in [`../website-next`](../website-next/README.md).
+This is the Python pipeline behind **WattsMyBill**, in the [`source/`](source/) folder. Run every command below from inside `source/` (`cd source`). The web app and chatbot are documented in [README-web.md](README-web.md).
 
 An AI-powered system to extract structured data and answer questions about Pakistani electricity bills (K-Electric, LESCO, IESCO).
 
@@ -197,8 +197,7 @@ source/
 ├── .env.example           # Template (don't commit .env)
 ├── .gitignore             # Exclude .env, __pycache__, etc.
 ├── test_api.py            # Quick Gemini API connectivity check
-├── ARCHITECTURE.md        # Detailed design walkthrough
-└── README.md              # This file
+└── ARCHITECTURE.md        # Detailed design walkthrough
 ```
 
 ## Re-running
